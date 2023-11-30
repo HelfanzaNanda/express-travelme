@@ -6,7 +6,9 @@ import { User } from './User';
 import { ScheduleDetail } from './ScheduleDetail';
 
 @Table({
-    underscored : true
+    underscored : true,
+    paranoid: true
+
 })
 class Order extends Model {
     @ForeignKey(() => User)

@@ -1,7 +1,9 @@
 
-import { UserRepository } from 'app/Repositories/UserRepository';
-import { User } from '../Models';
+import { UserRepository } from '..//Repositories/UserRepository';
+import { City, Role, User } from '../Models';
 import { InvalidCredentialsError } from '../Errors';
+import { Order } from 'sequelize';
+import { parseWhere } from '../Utils/helpers';
 
 class UserService {
     constructor( private userRepository: UserRepository, ) { }
@@ -19,8 +21,35 @@ class UserService {
     }
 
     public async all(): Promise<User[]> {
-        // return []
-        const users = await this.userRepository.all();
+        const include = [{
+            model : City,
+            attributes: ['id', 'name']
+        }]
+        const users = await this.userRepository.all([], include);
+        return users
+    }
+
+    public async datatables(limit? : number, offset? : number, order? : Order, filter? : {}): Promise<User[]> {
+        const include = [
+            {
+                model : City,
+                attributes: ['id', 'name']
+            },
+            {
+                model : Role,
+                through: {attributes: []},
+                attributes: ['id', 'name']
+            }
+        ];
+
+        const filters = parseWhere(filter);
+        
+
+
+
+
+
+        const users = await this.userRepository.datatables([], filters, order, include, limit, offset);
         return users
     }
 }

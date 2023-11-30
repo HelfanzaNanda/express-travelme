@@ -7,10 +7,10 @@ class UnknownError extends BaseError {
     ) {
         super(
             500,
-            'UnknownError',
-            'Unknown Error',
+            // 'UnknownError',
+            // 'Unknown Error',
             'An error occurred, but it could not be identified.',
-            originalName,
+            // originalName,
             stackTrace,
         );
     }

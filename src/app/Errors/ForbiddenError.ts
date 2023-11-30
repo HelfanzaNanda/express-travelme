@@ -7,10 +7,10 @@ class ForbiddenError extends BaseError {
     ) {
         super(
             403,
-            'ForbiddenError',
-            'Forbidden',
+            // 'ForbiddenError',
+            // 'Forbidden',
             'The provided token does not have access to the requested resource.',
-            originalName,
+            // originalName,
             stackTrace,
         );
     }

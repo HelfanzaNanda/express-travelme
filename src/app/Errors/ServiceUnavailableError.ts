@@ -7,10 +7,10 @@ class ServiceUnavailableError extends BaseError {
     ) {
         super(
             503,
-            'ServiceUnavailableError',
-            'Service Unavailable',
+            // 'ServiceUnavailableError',
+            // 'Service Unavailable',
             'The service is currently temporarily unavailable.',
-            originalName,
+            // originalName,
             stackTrace,
         );
     }

@@ -1,3 +1,4 @@
+import { Middleware } from 'lib/Middleware';
 import { Handler } from '../Handler';
 import { Route } from '../Route';
 
@@ -58,8 +59,8 @@ class RouteFacade {
     return new Route('patch', path, handler);
   }
 
-  public static post(path: string, handler: Handler) {
-    return new Route('post', path, handler);
+  public static post(path: string, handler: Handler, middlewares?: Array<typeof Middleware>) {
+    return new Route('post', path, handler, middlewares);
   }
 
   public static purge(path: string, handler: Handler) {

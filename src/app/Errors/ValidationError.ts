@@ -1,28 +1,35 @@
 import { BaseError } from './BaseError';
 
+export interface ValidationInterface {
+    [key: string]: string[];
+}
+
+export interface ValidationErrorInterface {
+    validation : ValidationInterface;
+    stackTrace? : string;
+}
+
 class ValidationError extends BaseError {
-    constructor(
-        public description: string,
-        public field?: string,
-        public validator?: string,
-        public originalName?: string,
-        public stackTrace?: string,
-    ) {
-        super(
-            400,
-            'ValidationError',
-            'Validation Error',
-            description,
-            originalName,
-            stackTrace,
-        );
+    constructor( public params? : ValidationErrorInterface ) {
+        super( 400, 'Validation Error', params?.stackTrace, );
     }
 
     public override toPlainObject(): object {
+
+        // this.validation = {
+        //     email : ['email is required'],
+        //     password : ['password is required'],
+        // }
+
+        // this.params!!.validation = {
+        //     email : ['email is required']
+        // }
+
         return {
             ...super.toPlainObject(),
-            field: this.field,
-            validator: this.validator,
+            validation : this.params?.validation,
+            // field: this.params.field,
+            // validator: this.params.validator,
         };
     }
 }

@@ -3,7 +3,9 @@ import {
 } from 'sequelize-typescript';
 
 @Table({
-    underscored : true
+    underscored : true,
+    paranoid: true
+
 })
 class Car extends Model {
     @Length({ min: 3, max: 255 })

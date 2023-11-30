@@ -1,11 +1,23 @@
 import {
-    Table, Column, Model, CreatedAt, UpdatedAt, IsEmail, Length, AllowNull, Unique, Default, DeletedAt, BelongsTo, ForeignKey,
+    Table, Column, Model, CreatedAt, UpdatedAt, IsEmail, Length, AllowNull, Unique, Default, DeletedAt, BelongsTo, ForeignKey, Scopes, DefaultScope, HasMany, BelongsToMany,
 } from 'sequelize-typescript';
 import { City } from './City';
-import { underscoredIf } from 'sequelize/types/utils';
+import { Role } from './Role';
+import { UsersRoles } from './UsersRoles';
 
+@DefaultScope(() => ({
+    attributes: {
+        exclude: ['password']
+    }
+}))
+@Scopes(() => ({
+    withPassword: {
+        attributes: { include: ['password'] },
+    }
+}))
 @Table({
-    underscored : true
+    underscored : true,
+    paranoid: true
 })
 class User extends Model {
     @Length({ min: 3, max: 255 })
@@ -46,6 +58,9 @@ class User extends Model {
 
     @BelongsTo(() => City)
     city! : City
+
+    @BelongsToMany(() => Role, () => UsersRoles, 'user_id')
+    roles! : Role[]
 
     @CreatedAt
     createdAt!: Date;

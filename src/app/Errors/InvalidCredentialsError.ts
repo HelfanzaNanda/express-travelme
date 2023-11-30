@@ -4,9 +4,9 @@ class InvalidCredentialsError extends BaseError {
     constructor() {
         super(
             401,
-            'InvalidCredentialsError',
+            // 'InvalidCredentialsError',
             'Invalid Credentials',
-            'The provided email and/or password are incorrect',
+            // 'The provided email and/or password are incorrect',
         );
     }
 }

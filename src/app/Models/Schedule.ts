@@ -5,7 +5,9 @@ import { City } from './City';
 import { Car } from './Car';
 
 @Table({
-    underscored : true
+    underscored : true,
+    paranoid: true
+
 })
 class Schedule extends Model {
     @ForeignKey(() => City)

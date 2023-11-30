@@ -1,8 +1,7 @@
 import { NextFunction, Request, Response } from 'express';
-// import { ActivateAction, LoginAction, RegisterAction } from '../Actions/Auth';
 import { BadRequestError } from '../Errors';
-import { AuthService } from 'app/Services/AuthService';
-import { UserService } from 'app/Services/UserService';
+import { UserService } from '..//Services/UserService';
+import { ResponseHelper } from '..//Utils/ResponseUtils';
 
 class UserController {
     constructor(private userService : UserService) { }
@@ -24,15 +23,33 @@ class UserController {
 
     public async all(request: Request, response: Response, next: NextFunction) {
         try {
+            const data = await this.userService.all();
 
-
-
-            const result = await this.userService.all();
-
-            return response.status(200).send(result);
+            const result = ResponseHelper.success({data : data})
+            return response.status(200).json(result);
         } catch (error) {
             if (error instanceof BadRequestError) {
-                return response.status(400).send('Invalid activation token.');
+                return response.status(400).send('Server Error');
+            }
+
+            return next(error);
+        }
+    }
+
+    public async datatables(request: Request, response: Response, next: NextFunction) {
+        try {
+            const limit = request.body.limit;
+            const offset = request.body.offset;
+            const order = request.body.order;
+            const filters = request.body.filters;
+
+            const data = await this.userService.datatables(limit, offset, order, filters);
+
+            const result = ResponseHelper.success({data : data})
+            return response.status(200).json(result);
+        } catch (error) {
+            if (error instanceof BadRequestError) {
+                return response.status(400).send('Server Error');
             }
 
             return next(error);

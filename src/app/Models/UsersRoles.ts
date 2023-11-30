@@ -5,7 +5,9 @@ import { User } from './User';
 import { Role } from './Role';
 
 @Table({
-    underscored : true
+    underscored : true,
+    paranoid: true
+
 })
 class UsersRoles extends Model {
     @ForeignKey(() => User)

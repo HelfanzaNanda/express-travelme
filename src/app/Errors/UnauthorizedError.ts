@@ -1,16 +1,13 @@
 import { BaseError } from './BaseError';
 
 class UnauthorizedError extends BaseError {
-    constructor(
-        public originalName?: string,
-        public stackTrace?: string,
-    ) {
+    constructor( public originalName?: string, public stackTrace?: string, ) {
         super(
             401,
-            'UnauthorizedError',
-            'Unauthorized',
+            // 'UnauthorizedError',
+            // 'Unauthorized',
             'No authorization token was found.',
-            originalName,
+            // originalName,
             stackTrace,
         );
     }

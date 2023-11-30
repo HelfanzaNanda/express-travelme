@@ -4,7 +4,9 @@ import {
 import { Schedule } from './Schedule';
 
 @Table({
-    underscored : true
+    underscored : true,
+    paranoid: true
+
 })
 class ScheduleDetail extends Model {
     @ForeignKey(() => Schedule)

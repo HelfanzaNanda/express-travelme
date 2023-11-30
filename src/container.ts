@@ -1,13 +1,12 @@
 import { Container } from 'injektion';
 import { UserRepository, } from './app/Repositories';
 
-const container = new Container({
-  autoloadBaseDir: './src/app',
-});
+// const container = new Container({
+//   autoloadBaseDir: './src/app',
+// });
 
-// const container = Container.singleton(Logg);
+// const container = await Container.autoload('./src/app');
 
-
-container.bind('UserRepository', UserRepository);
+Container.namedBind('UserRepository', UserRepository);
 
 export default container;

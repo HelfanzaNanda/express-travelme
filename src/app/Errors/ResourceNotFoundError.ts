@@ -7,10 +7,10 @@ class ResourceNotFoundError extends BaseError {
     ) {
         super(
             404,
-            'ResourceNotFoundError',
-            'Resource Not Found',
+            // 'ResourceNotFoundError',
+            // 'Resource Not Found',
             'The requested resource was not found or does not exist.',
-            originalName,
+            // originalName,
             stackTrace,
         );
     }
